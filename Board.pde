@@ -1,0 +1,89 @@
+ArrayList<Farbe> chooser;
+
+ArrayList<ArrayList<Farbe>> guesses = new ArrayList<ArrayList<Farbe>>();
+
+
+class Board{
+  int numCol = 0;
+
+  
+ Board(){
+  chooser = new ArrayList<Farbe>();
+  
+  chooser.add(new Farbe(200, 200, 200));
+  chooser.add(new Farbe(200, 000, 000));
+  chooser.add(new Farbe(000, 000, 200));
+  chooser.add(new Farbe(200, 000, 200));
+  chooser.add(new Farbe(255, 204, 000));
+  chooser.add(new Farbe(255, 104, 000));
+  chooser.add(new Farbe(000, 200, 200));
+  chooser.add(new Farbe(000, 200, 000));
+  
+  numCol = chooser.size();
+  float w = (600/(numCol));
+  float h = 650;
+
+  int temp = 15;
+  
+  for(int i = 0; i < numCol; i++){
+    chooser.get(i).initFarbe(w+temp, h);
+    temp+=60;
+    
+  }
+ }
+ void drawMe(){
+   noStroke();
+   for(int i = 0; i < numCol; i++){
+    fill(chooser.get(i).selectFarbe);
+    ellipse(chooser.get(i).circleX, chooser.get(i).circleY, 30, 30);
+   }
+ }
+ 
+ void displayGuesses(){
+  
+  int y = 580;
+  int x;
+  int temp;
+  
+  for(int i = 0; i < guesses.size(); i++){
+   x = 600/4;
+   temp = 60;
+   for(int j = 0; j < guesses.get(i).size(); j++){
+     Farbe currentFarbe = guesses.get(i).get(j);
+     fill(currentFarbe.selectFarbe);
+     x = x + temp;
+     ellipse(x, y, 30, 30);
+     
+   }
+   y = y - 40;
+  }
+ }
+ 
+ void displayAnswers(){
+   int y = 580;
+   int x;
+   int temp;
+   
+   ArrayList<ArrayList<Integer>> answers = p1.hereYouGo();
+   //println(answers.size());
+   for(int i = 0; i < answers.size(); i++){
+    x = 25;
+    temp = 20;
+    for(int j = 0; j < answers.get(i).size(); j++){
+      if(answers.get(i).get(j).equals(2)){
+        fill(0);
+        ellipse(x,y,15,15);
+      }
+      else if(answers.get(i).get(j).equals(1)){
+        fill(255);
+        stroke(0);
+        ellipse(x,y,15,15);
+        noStroke();
+      }
+      x = x + temp;
+    }
+      y = y - 40;
+   }
+ }
+ 
+}
