@@ -20,23 +20,31 @@ class Board{
   chooser.add(new Farbe(000, 200, 000));
   
   numCol = chooser.size();
-  float w = (600/(numCol));
+  float w = (300/(numCol));
   float h = 650;
-
   int temp = 15;
   
   for(int i = 0; i < numCol; i++){
     chooser.get(i).initFarbe(w+temp, h);
-    temp+=60;
-    
+    temp+=50;
   }
+  
  }
  void drawMe(){
    noStroke();
    for(int i = 0; i < numCol; i++){
     fill(chooser.get(i).selectFarbe);
-    ellipse(chooser.get(i).circleX, chooser.get(i).circleY, 30, 30);
+    ellipse(chooser.get(i).circleX, chooser.get(i).circleY, 40, 40);
    }
+   
+  //displays return button
+  stroke(0);
+  fill(255);
+  ellipse(480, 650, 38, 38);
+  fill(0);
+  textSize(24);
+  text("<",470,658);
+  noStroke();
  }
  
  void displayGuesses(){
@@ -46,11 +54,25 @@ class Board{
   int temp;
   
   for(int i = 0; i < guesses.size(); i++){
-   x = 600/4;
+   x = 100;
    temp = 60;
-   for(int j = 0; j < guesses.get(i).size(); j++){
+                       
+   for(int j = 0; j < guesses.get(i).size(); j++){       
+         
+     /*displays crosses
+     PROBLEMS: 
+     1.  crosses need to stay
+     2.  cross not displayed on last selected colour
+     3.  cross displayed on non existing field in front of first selected colour*/  
+     if (mouseX >= x-15 && mouseX <= x+15 && 
+         mouseY >= y-15 && mouseY <= y+15){
+         fill(0);
+         textSize(20);
+         text("x",x-6,y+5);
+      }
+      
      Farbe currentFarbe = guesses.get(i).get(j);
-     fill(currentFarbe.selectFarbe);
+     fill(currentFarbe.selectFarbe);      
      x = x + temp;
      ellipse(x, y, 30, 30);
      
